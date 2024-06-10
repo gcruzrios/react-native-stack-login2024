@@ -18,7 +18,7 @@ export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
-
+  const [cpassword, setCpassword] = useState({ value: '', error: '' })
   const onSignUpPressed = () => {
     // const nameError = nameValidator(name.value)
     // const emailError = emailValidator(email.value)
@@ -72,9 +72,19 @@ export default function RegisterScreen({ navigation }) {
         secureTextEntry
         description = ""
       />
+      <TextInput
+        label="Confirm Password"
+        returnKeyType="done"
+        value={cpassword.value}
+        onChangeText={(text:string) => setCpassword({ value: text, error: '' })}
+        error={!!cpassword.error}
+        errorText={cpassword.error}
+        secureTextEntry
+        description = ""
+      />
       <Button
         mode="contained"
-        onPress={navigation.navigate('Dashboard')}
+        onPress={() => navigation.navigate('Dashboard')}
         style={{ marginTop: 24 }}
       >
         Sign Up
