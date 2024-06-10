@@ -9,6 +9,7 @@ import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import Dashboard from './Dashboard';
+import RegisterScreen from './RegisterScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 //import { emailValidator } from '../helpers/emailValidator'
@@ -76,7 +77,7 @@ export default function LoginScreen({ navigation }) {
       </Button>
       <View style={styles.row}>
         <Text>Don’t have an account? </Text>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
       </View> 
