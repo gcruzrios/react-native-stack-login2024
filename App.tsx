@@ -40,7 +40,7 @@ function App() {
       {/* <Stack.Screen name="Home" component={HomeScreen}  options={{ title: 'Login' }} /> */}
         <Stack.Screen name="Home" component={LoginScreen}  options={{ title: 'Login' }}/> 
         <Stack.Screen name="Details" component={DetailsScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -9,7 +9,7 @@ import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import Dashboard from './Dashboard';
-import LoginScreen from './LoginScreen';
+import Home from './LoginScreen';
 // import { emailValidator } from '../helpers/emailValidator'
 // import { passwordValidator } from '../helpers/passwordValidator'
 // import { nameValidator } from '../helpers/nameValidator'
@@ -81,7 +81,7 @@ export default function RegisterScreen({ navigation }) {
       </Button>
       <View style={styles.row}>
         <Text>Already have an account? </Text>
-        <TouchableOpacity onPress={() =>  navigation.navigate('LoginScreen')}>
+        <TouchableOpacity onPress={() =>  navigation.navigate('Home')}>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>
