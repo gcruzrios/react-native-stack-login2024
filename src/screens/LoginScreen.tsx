@@ -13,8 +13,8 @@ import RegisterScreen from './RegisterScreen';
 import Reset from './ResetPasswordScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
-//import { emailValidator } from '../helpers/emailValidator'
-//import { passwordValidator } from '../helpers/passwordValidator'
+import { emailValidator } from '../helpers/emailValidator'
+import { passwordValidator } from '../helpers/passwordValidator'
 
 // export default function LoginScreen({ navigation }) {
 
@@ -23,17 +23,18 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState({ value: '', error: '' })
 
   const onLoginPressed = () => {
-  //   const emailError = emailValidator(email.value)
-  //   const passwordError = passwordValidator(password.value)
-  //   if (emailError || passwordError) {
-  //     setEmail({ ...email, error: emailError })
-  //     setPassword({ ...password, error: passwordError })
-  //     return
-  //   }
-  //   navigation.reset({
-  //     index: 0,
-  //     routes: [{ name: 'Dashboard' }],
-  //   })
+    const emailError = emailValidator(email.value)
+    const passwordError = passwordValidator(password.value)
+    if (emailError || passwordError) {
+      setEmail({ ...email, error: emailError })
+      setPassword({ ...password, error: passwordError })
+      return
+    }
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{ name: 'Dashboard' }],
+    // })
+    navigation.navigate('Dashboard')
   }
 
   return (
@@ -72,7 +73,7 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
-      <Button mode="contained" style={undefined} onPress={() => navigation.navigate('Dashboard')}>
+      <Button mode="contained" style={undefined} onPress={onLoginPressed}>
         Login
         
       </Button>
@@ -86,7 +87,7 @@ export default function LoginScreen({ navigation }) {
   )
 }
 
-// onPress={onLoginPressed}
+// onPress=
 //onPress={() => navigation.replace('RegisterScreen')}
 //onPress={() => navigation.navigate('ResetPasswordScreen')}
 

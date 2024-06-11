@@ -10,25 +10,27 @@ import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import Dashboard from './Dashboard';
 import Home from './LoginScreen';
-// import { emailValidator } from '../helpers/emailValidator'
-// import { passwordValidator } from '../helpers/passwordValidator'
-// import { nameValidator } from '../helpers/nameValidator'
+import { emailValidator } from '../helpers/emailValidator'
+import { passwordValidator } from '../helpers/passwordValidator'
+import { nameValidator } from '../helpers/nameValidator'
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [cpassword, setCpassword] = useState({ value: '', error: '' })
+
   const onSignUpPressed = () => {
-    // const nameError = nameValidator(name.value)
-    // const emailError = emailValidator(email.value)
-    // const passwordError = passwordValidator(password.value)
-    // if (emailError || passwordError || nameError) {
-    //   setName({ ...name, error: nameError })
-    //   setEmail({ ...email, error: emailError })
-    //   setPassword({ ...password, error: passwordError })
-    //   return
-    // }
+    const nameError = nameValidator(name.value)
+    const emailError = emailValidator(email.value)
+    const passwordError = passwordValidator(password.value)
+    if (emailError || passwordError || nameError) {
+      setName({ ...name, error: nameError })
+      setEmail({ ...email, error: emailError })
+      setPassword({ ...password, error: passwordError })
+      return
+    }
+    navigation.navigate('Dashboard')
     // navigation.reset({
     //   index: 0,
     //   routes: [{ name: 'Dashboard' }],
@@ -84,7 +86,7 @@ export default function RegisterScreen({ navigation }) {
       />
       <Button
         mode="contained"
-        onPress={() => navigation.navigate('Dashboard')}
+        onPress={onSignUpPressed}
         style={{ marginTop: 24 }}
       >
         Sign Up
