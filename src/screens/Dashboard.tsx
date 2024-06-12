@@ -34,15 +34,15 @@ export default function Dashboard({navigation}) {
 
 
 
-        {/* <Button
+         <Button
           style={undefined}
           mode="outlined"
           onPress={() => navigation.navigate('Home')}>
-          Logout
-        </Button> */}
+          Add New Contact
+        </Button> 
          {data.map((record) => (
    <Card style={styles.menuContainer}>
-  <Card.Title title={record.nombre} subtitle="Info"/> 
+  <Card.Title title={record.nombre} subtitle=""/> 
    <Card.Content>
      <Text variant="bodyMedium">Email:{record.email}</Text>
      <Text variant="bodyMedium">Phone: {record.telefono}</Text>
