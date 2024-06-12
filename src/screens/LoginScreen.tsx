@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TouchableOpacity, StyleSheet, View } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Alert} from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
@@ -16,25 +16,72 @@ import { NavigationContainer } from '@react-navigation/native';
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 
+import axios from "axios";
+
 // export default function LoginScreen({ navigation }) {
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
-
-  const onLoginPressed = () => {
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError) {
-      setEmail({ ...email, error: emailError })
-      setPassword({ ...password, error: passwordError })
-      return
+ 
+  //const [email, setEmail] = useState({ value: '', error: '' })
+  //const [password, setPassword] = useState({ value: '', error: '' })
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+ 
+  const [data, setData] = useState();
+    
+  const onLoginPressed = async () => {
+    // const emailError = emailValidator(email.value)
+    // const passwordError = passwordValidator(password.value)
+    // if (emailError || passwordError) {
+    //   setEmail({ ...email, error: emailError })
+    //   setPassword({ ...password, error: passwordError })
+    //   return
+    // }
+    
+    interface usuario{
+      email:string,
+      password:string
     }
-    // navigation.reset({
-    //   index: 0,
-    //   routes: [{ name: 'Dashboard' }],
-    // })
+    const ingreso = { email, password };
+    console.log(ingreso)
+    const response = await axios.post(`https://minimal.greiv.in/api/login`, ingreso);
+   
+    // let datauser = { 
+    //   email: email,
+    //   password:password
+    //  }   
+
+    // fetch("https://minimal.greiv.in/api/login" ,{
+    //    method: 'post',
+    //    headers: {
+    //      'Accept': 'application/json',
+    //      'Content-Type': 'application/json'
+    //    },
+    //    body: JSON.stringify(datauser)
+    //  }) 
+    //  .then((response: { json: () => any }) => response.json()) 
+    //  .then(data => setData(data))
+    //  .catch((error) => { 
+    //      // Handle any errors that occur 
+    //      console.error(error); 
+    //  }); 
+
+    
+     
+    //const mensaje = data;
+    const mensaje = response.data;
+
+
+
+    if (mensaje ==="Las Credenciales de usuario fallaron") {
+      Alert.alert('An error has occurred', mensaje, [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
+    } else {
+
+    //Alert.alert('Alert Title',mensaje)  
     navigation.navigate('Dashboard')
+    }
   }
 
   return (
@@ -46,25 +93,27 @@ export default function LoginScreen({ navigation }) {
       <TextInput
         label="Email"
         returnKeyType="next"
-        value={email.value}
-        onChangeText={(text: any) => setEmail({ value: text, error: '' })}
-        error={!!email.error}
-        errorText={email.error}
+        // value={email.value}
+        // 
+        // error={!!email.error}
+        errorText={email}
         autoCapitalize="none"
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
         description = ""
+        onChangeText={(text: any) => setEmail(text)}
       />
       <TextInput
         label="Password"
         returnKeyType="done"
-        value={password.value}
-        onChangeText={(text: any) => setPassword({ value: text, error: '' })}
-        error={!!password.error}
-        errorText={password.error}
+        // value={password.value}
+        // onChangeText={(text: any) => setPassword({ value: text, error: '' })}
+        // error={!!password.error}
+        errorText={password}
         description = ""
         secureTextEntry
+        onChangeText={(text: any) => setPassword(text)}
       />
       <View style={styles.forgotPassword}>
         <TouchableOpacity
