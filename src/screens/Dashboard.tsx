@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
 import {NavigationContainer} from '@react-navigation/native';
-import {SafeAreaView, ScrollView,StyleSheet, TouchableOpacity} from 'react-native';
+import {SafeAreaView, ScrollView,StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {Avatar, Card, Text} from 'react-native-paper';
 import axios from "axios";
 
@@ -24,6 +24,24 @@ export default function Dashboard({navigation}) {
     peticionGet();
   }, []);
 
+
+  const eliminar_completo = async (id) => {
+    const respuesta = await axios.delete(`https://minimal.greiv.in/api/contactos/${id}`);
+    peticionGet();
+  };
+  
+  const handleDelete = async (id) => {
+    Alert.alert('Delete Contact', 'Delete contacto', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => eliminar_completo(id)},
+    ]);
+    ;
+  }
+
  
   //  export default function Dashboard() {
   return (
@@ -37,7 +55,7 @@ export default function Dashboard({navigation}) {
          <Button
           style={undefined}
           mode="outlined"
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => navigation.navigate('AddContact')}>
           Add New Contact
         </Button> 
          {data.map((record) => (
@@ -53,12 +71,14 @@ export default function Dashboard({navigation}) {
    <Card.Actions>
      <TouchableOpacity
        style={styles.link}
-       onPress={() => {}}>
+       onPress={() => {navigation.navigate('EditContact', {
+        id: record.id});
+      }}>
        <Text> Edit</Text>
      </TouchableOpacity>
      <TouchableOpacity
        style={styles.link}
-       onPress={() => {}}>
+       onPress={() =>handleDelete(record.id)}>
        <Text> Delete</Text>
      </TouchableOpacity>
    </Card.Actions>

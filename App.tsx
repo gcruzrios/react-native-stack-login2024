@@ -9,6 +9,8 @@ import Dashboard from './src/screens/Dashboard';
 import LoginScreen from './src/screens/LoginScreen';
 import Register from './src/screens/RegisterScreen';
 import Reset from './src/screens/ResetPasswordScreen';
+import AddContact from './src/screens/AddContact';
+import EditContact from './src/screens/EditContact ';
 
 function HomeScreen({ navigation }) {
   return (
@@ -45,7 +47,8 @@ function App() {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Reset" component={Reset} />
-        
+        <Stack.Screen name="AddContact" component={AddContact} />
+        <Stack.Screen name="EditContact" component={EditContact} />
       </Stack.Navigator>
     </NavigationContainer>
   );
