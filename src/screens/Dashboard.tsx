@@ -8,11 +8,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaView, ScrollView,StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {Avatar, Card, Text} from 'react-native-paper';
 import axios from "axios";
-
+import { useIsFocused } from "@react-navigation/native";
 
 
 export default function Dashboard({navigation}) {
   const [data, setData] = useState([]);
+
+  const isFocused = useIsFocused();
+
   const peticionGet = async () => {
     //const idUsuario = localStorage.getItem('idUsuario');
   
@@ -21,8 +24,11 @@ export default function Dashboard({navigation}) {
     });
   };
   useEffect(() => {
-    peticionGet();
-  }, []);
+    if(isFocused){ 
+      peticionGet();
+  }
+    
+  }, [ isFocused]);
 
 
   const eliminar_completo = async (id) => {
@@ -59,7 +65,7 @@ export default function Dashboard({navigation}) {
           Add New Contact
         </Button> 
          {data.map((record) => (
-   <Card style={styles.menuContainer}>
+   <Card key={record.id} style={styles.menuContainer}>
   <Card.Title title={record.nombre} subtitle=""/> 
    <Card.Content>
      <Text variant="bodyMedium">Email:{record.email}</Text>
