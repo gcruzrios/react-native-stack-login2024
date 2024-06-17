@@ -53,16 +53,17 @@ export default function RegisterScreen({ navigation }) {
         navigation.navigate('Dashboard')
       }
 
-      Alert.alert('An error has occurred', mensaje, [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
-      navigation.navigate('Dashboard')
-    }else{
+      // Alert.alert('An error has occurred', mensaje, [
+      //   {text: 'OK', onPress: () => console.log('OK Pressed')},
+      // ]);
+      // navigation.navigate('Dashboard')
+
+    } else {
       Alert.alert('An error has occurred', "Passwords no coinciden..", [
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ]);
     }
-
+  }
   return (
     <Background>
       {/* <BackButton goBack={navigation.goBack} /> */}
@@ -71,10 +72,10 @@ export default function RegisterScreen({ navigation }) {
       <TextInput
         label="Name"
         returnKeyType="next"
-        value={name}
+        value={nombreUsuario}
         onChangeText={(text:string) => setName(text)}
-        error={!!name}
-        errorText={name}
+        error={!!nombreUsuario}
+        errorText={nombreUsuario}
         description = ""
       />
       <TextInput
@@ -88,32 +89,6 @@ export default function RegisterScreen({ navigation }) {
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
-        description = ""
-      />
-      <TextInput
-        label="Phone"
-        returnKeyType="next"
-        value={phone}
-        onChangeText={(text:string) => setPhone(text)}
-        error={!!phone}
-        errorText={phone}
-        autoCapitalize="none"
-        autoCompleteType="Phone"
-        textContentType="Phone"
-        keyboardType="phone"
-        description = ""
-      />
-      <TextInput
-        label="Cel phone"
-        returnKeyType="next"
-        value={celphone}
-        onChangeText={(text:string) => setCelphone(text)}
-        error={!!celphone}
-        errorText={celphone}
-        autoCapitalize="none"
-        autoCompleteType="Cel Phone"
-        textContentType="Cel phone"
-        keyboardType="cel-phone"
         description = ""
       />
       <TextInput
