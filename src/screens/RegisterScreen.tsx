@@ -18,15 +18,15 @@ export default function RegisterScreen({ navigation }) {
   // const [name, setName] = useState({ value: '', error: '' })
   // const [email, setEmail] = useState({ value: '', error: '' })
   
+  const [nombreUsuario, setNombreUsuario] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+
   
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [celphone, setCelphone] = useState('')
-  const [role, setRole] = useState('')
-  
-  const [password, setPassword] = useState('')
-  const [cpassword, setCpassword] = useState('')
+ // const [password, setPassword] = useState('')
+ // const [cpassword, setCpassword] = useState('')
 
 
 
@@ -34,32 +34,34 @@ export default function RegisterScreen({ navigation }) {
   const onSignUpPressed = async () => {
     
     setRole("User")
-    const usuario = { name, email, phone, celphone, password, role };
+    const usuario = { nombreUsuario, email, password, role };
     console.log(usuario);
 
     const response = await axios.post(`https://minimal.greiv.in/api/usuarios`, usuario);
     const mensaje = response.data;
     console.log(mensaje);
 
-    if (mensaje ===null) {
-      Alert.alert('An error has occurred', "Error insertando usuario..", [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
-    } else {
-      Alert.alert('Exito', "Usuario insertado con éxito..", [
+    if (password === cpassword){
+      if (mensaje ===null) {
+        Alert.alert('An error has occurred', "Error insertando usuario..", [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ]);
+      } else {
+        Alert.alert('Exito', "Usuario insertado con éxito..", [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ]);
+        navigation.navigate('Dashboard')
+      }
+
+      Alert.alert('An error has occurred', mensaje, [
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ]);
       navigation.navigate('Dashboard')
+    }else{
+      Alert.alert('An error has occurred', "Passwords no coinciden..", [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
     }
-
-    Alert.alert('An error has occurred', mensaje, [
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
-
-
-
-    navigation.navigate('Dashboard')
-  }
 
   return (
     <Background>
