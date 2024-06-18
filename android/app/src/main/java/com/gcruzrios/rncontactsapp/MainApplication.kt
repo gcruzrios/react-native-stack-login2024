@@ -1,4 +1,4 @@
-package com.rnstacknavigator2024
+package com.gcruzrios.rncontactsapp
 
 import android.app.Application
 import com.facebook.react.PackageList

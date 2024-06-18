@@ -73,7 +73,7 @@ export default function RegisterScreen({ navigation }) {
         label="Name"
         returnKeyType="next"
         value={nombreUsuario}
-        onChangeText={(text:string) => setName(text)}
+        onChangeText={(text:string) => setNombreUsuario(text)}
         error={!!nombreUsuario}
         errorText={nombreUsuario}
         description = ""

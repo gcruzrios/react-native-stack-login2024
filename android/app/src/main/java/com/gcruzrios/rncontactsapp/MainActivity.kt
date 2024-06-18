@@ -1,4 +1,4 @@
-package com.rnstacknavigator2024
+package com.gcruzrios.rncontactsapp
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
