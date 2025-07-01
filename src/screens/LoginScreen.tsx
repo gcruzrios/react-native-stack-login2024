@@ -16,7 +16,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 
+
 import axios from "axios";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // export default function LoginScreen({ navigation }) {
 
@@ -44,7 +47,7 @@ export default function LoginScreen({ navigation }) {
     }
     const ingreso = { email, password };
     console.log(ingreso)
-    const response = await axios.post(`https://minimal.greiv.in/api/login`, ingreso);
+    const response = await axios.post(`https://nodejs-contactos-fc9722b786ad.herokuapp.com/api/usuario/login`, ingreso);
    
     // let datauser = { 
     //   email: email,
@@ -78,7 +81,15 @@ export default function LoginScreen({ navigation }) {
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ]);
     } else {
+      const id_usuario = response.data.id;
+      const nombre_usuario = response.data.nombre;
+      await AsyncStorage.setItem('idUsuario', id_usuario);
+      await AsyncStorage.setItem('nombreUsuario', nombre_usuario);
 
+           
+    
+         
+     
     //Alert.alert('Alert Title',mensaje)  
     navigation.navigate('Dashboard')
     }

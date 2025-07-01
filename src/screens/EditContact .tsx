@@ -20,12 +20,14 @@ import axios from "axios";
 export default function EditContact({ route, navigation }) {
   
   
-  const [data, setData] = useState([]);
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [celphone, setCelphone] = useState('')
-//   const [role, setRole] = useState('')
+  
+  const [nombre, setNombre] = useState("");
+  const [telefono, setTelefono] = useState("");
+  
+  const [email, setEmail] = useState("");
+  const [empresa, setEmpresa] = useState("");
+
+  //   const [role, setRole] = useState('')
 //   const [password, setPassword] = useState('')
 //   const [cpassword, setCpassword] = useState('')
 
@@ -35,13 +37,16 @@ export default function EditContact({ route, navigation }) {
     //const idUsuario = localStorage.getItem('idUsuario');
     const { id } = route.params;
 
-    const response = await axios.get(`https://minimal.greiv.in/api/contactos/${id}`);
+    const response = await axios.get(`https://nodejs-contactos-fc9722b786ad.herokuapp.com/api/contacto/obtenercontacto/${id}`);
     const mensaje = response.data;
-    setName(mensaje.nombre);
-    setPhone(mensaje.telefono);
-    setCelphone(mensaje.celular);
-    setEmail(mensaje.email);
-    
+    console.log(mensaje);
+
+    setNombre(mensaje[0].nombre);
+    setTelefono(mensaje[0].telefono);
+    setEmail(mensaje[0].email);
+    setEmpresa(mensaje[0].empresa);   
+
+    console.log(nombre);
   };
   useEffect(() => {
     peticionGet();
@@ -53,11 +58,14 @@ export default function EditContact({ route, navigation }) {
   const onSignUpPressed = async () => {
     
    // setRole("User")
-    const contacto = { nombre:name, email:email, telefono:phone, celular:celphone};
+
+    const contacto = { nombre, telefono, email, empresa };
+    
+    //const contacto = { nombre:name, email:email, telefono:phone, celular:celphone};
     console.log(contacto);
     const { id } = route.params;
-    const response = await axios.put(`https://minimal.greiv.in/api/contactos/${id}`, contacto);
-    //const response = await axios.post(`https://minimal.greiv.in/api/contactos`, contacto);
+    const response = await axios.put(`https://nodejs-contactos-fc9722b786ad.herokuapp.com/api/contacto/actualizarcontacto/${id}`, contacto);
+    
     const mensaje = response.data;
     console.log("Este es el mensaje: ",mensaje);
 
@@ -66,7 +74,7 @@ export default function EditContact({ route, navigation }) {
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ]);
     } else {
-      Alert.alert('Exito', "Contacto insertado con éxito..", [
+      Alert.alert('Exito', "Contacto editado con éxito..", [
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ]);
       navigation.navigate('Dashboard')
@@ -82,10 +90,10 @@ export default function EditContact({ route, navigation }) {
       <TextInput
         label="Name"
         returnKeyType="next"
-        value={name}
-        onChangeText={(text:string) => setName(text)}
-        error={!!name}
-        errorText={name}
+        value={nombre}
+        onChangeText={(text:string) => setNombre(text)}
+        error={!!nombre}
+        errorText={nombre}
         description = ""
       />
       <TextInput
@@ -104,10 +112,10 @@ export default function EditContact({ route, navigation }) {
          <TextInput
         label="Phone"
         returnKeyType="next"
-        value={phone}
-        onChangeText={(text:string) => setPhone(text)}
-        error={!!phone}
-        errorText={phone}
+        value={telefono}
+        onChangeText={(text:string) => setTelefono(text)}
+        error={!!telefono}
+        errorText={telefono}
         autoCapitalize="none"
         autoCompleteType="Phone"
         textContentType="Phone"
@@ -115,16 +123,16 @@ export default function EditContact({ route, navigation }) {
         description = ""
       />
          <TextInput
-        label="Cel phone"
+        label="Empresa"
         returnKeyType="next"
-        value={celphone}
-        onChangeText={(text:string) => setCelphone(text)}
-        error={!!celphone}
-        errorText={celphone}
+        value={empresa}
+        onChangeText={(text:string) => setEmpresa(text)}
+        error={!!empresa}
+        errorText={empresa}
         autoCapitalize="none"
-        autoCompleteType="Cel Phone"
-        textContentType="Cel phone"
-        keyboardType="cel-phone"
+        autoCompleteType="Empresa"
+        textContentType="Empresa"
+        keyboardType="Empresa"
         description = ""
       />
      

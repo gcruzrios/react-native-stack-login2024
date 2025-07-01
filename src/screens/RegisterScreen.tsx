@@ -37,7 +37,7 @@ export default function RegisterScreen({ navigation }) {
     const usuario = { nombreUsuario, email, password, role };
     console.log(usuario);
 
-    const response = await axios.post(`https://minimal.greiv.in/api/usuarios`, usuario);
+    const response = await axios.post(`https://nodejs-contactos-fc9722b786ad.herokuapp.com/api/usuario/agregarusuario`, usuario);
     const mensaje = response.data;
     console.log(mensaje);
 

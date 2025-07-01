@@ -15,13 +15,18 @@ import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
 import axios from "axios";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function AddContact({ navigation }) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [celphone, setCelphone] = useState('')
+  
+ 
+  
+  const [nombre, setNombre] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [empresa, setEmpresa] = useState("");
+  const [email, setEmail] = useState("");
+
 //   const [role, setRole] = useState('')
 //   const [password, setPassword] = useState('')
 //   const [cpassword, setCpassword] = useState('')
@@ -29,11 +34,16 @@ export default function AddContact({ navigation }) {
   const onSignUpPressed = async () => {
     
    // setRole("User")
-    const contacto = { nombre:name, email:email, telefono:phone, celular:celphone};
+
+    const usuario = await AsyncStorage.getItem('idUsuario');
+
+    const contacto = { nombre, telefono, empresa, email, usuario };
+
+    
     console.log(contacto);
 
     
-    const response = await axios.post(`https://minimal.greiv.in/api/contactos`, contacto);
+    const response = await axios.post(`https://nodejs-contactos-fc9722b786ad.herokuapp.com/api/contacto/agregarcontacto`, contacto);
     const mensaje = response.data;
     console.log("Este es el mensaje: ",mensaje);
 
@@ -58,10 +68,10 @@ export default function AddContact({ navigation }) {
       <TextInput
         label="Name"
         returnKeyType="next"
-        value={name}
-        onChangeText={(text:string) => setName(text)}
-        error={!!name}
-        errorText={name}
+        value={nombre}
+        onChangeText={(text:string) => setNombre(text)}
+        error={!!nombre}
+        errorText={nombre}
         description = ""
       />
       <TextInput
@@ -80,27 +90,23 @@ export default function AddContact({ navigation }) {
          <TextInput
         label="Phone"
         returnKeyType="next"
-        value={phone}
-        onChangeText={(text:string) => setPhone(text)}
-        error={!!phone}
-        errorText={phone}
+        value={telefono}
+        onChangeText={(text:string) => setTelefono(text)}
+        error={!!telefono}
+        errorText={telefono}
         autoCapitalize="none"
         autoCompleteType="Phone"
         textContentType="Phone"
         keyboardType="phone"
         description = ""
       />
-         <TextInput
-        label="Cel phone"
+      <TextInput
+        label="Empresa"
         returnKeyType="next"
-        value={celphone}
-        onChangeText={(text:string) => setCelphone(text)}
-        error={!!celphone}
-        errorText={celphone}
-        autoCapitalize="none"
-        autoCompleteType="Cel Phone"
-        textContentType="Cel phone"
-        keyboardType="cel-phone"
+        value={empresa}
+        onChangeText={(text:string) => setEmpresa(text)}
+        error={!!empresa}
+        errorText={empresa}
         description = ""
       />
      

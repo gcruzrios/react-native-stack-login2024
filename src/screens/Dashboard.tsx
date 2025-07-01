@@ -9,6 +9,7 @@ import {SafeAreaView, ScrollView,StyleSheet, TouchableOpacity, Alert} from 'reac
 import {Avatar, Card, Text} from 'react-native-paper';
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Dashboard({navigation}) {
@@ -17,9 +18,16 @@ export default function Dashboard({navigation}) {
   const isFocused = useIsFocused();
 
   const peticionGet = async () => {
-    //const idUsuario = localStorage.getItem('idUsuario');
+
+
+    
+    
   
-    await axios.get("https://minimal.greiv.in/api/contactos").then((response) => {
+
+    // below is how you would do using react-native-async-storage
+    
+    const idUsuario = await AsyncStorage.getItem('idUsuario');
+    await axios.get(`https://nodejs-contactos-fc9722b786ad.herokuapp.com/api/contacto/obtenercontactos/${idUsuario}`).then((response) => {
       setData(response.data);
     });
   };
@@ -32,7 +40,7 @@ export default function Dashboard({navigation}) {
 
 
   const eliminar_completo = async (id) => {
-    const respuesta = await axios.delete(`https://minimal.greiv.in/api/contactos/${id}`);
+    const respuesta = await axios.delete(`https://nodejs-contactos-fc9722b786ad.herokuapp.com/api/contacto/borrarcontacto/${id}`);
     peticionGet();
   };
   
@@ -65,12 +73,12 @@ export default function Dashboard({navigation}) {
           Add New Contact
         </Button> 
          {data.map((record) => (
-   <Card key={record.id} style={styles.menuContainer}>
+   <Card key={record._id} style={styles.menuContainer}>
   <Card.Title title={record.nombre} subtitle=""/> 
    <Card.Content>
      <Text variant="bodyMedium">Email:{record.email}</Text>
      <Text variant="bodyMedium">Phone: {record.telefono}</Text>
-     <Text variant="bodyMedium">Cel Phone:{record.celular}</Text>
+     
      {/* <Text variant="labelMedium">{record.url}</Text> */}
    </Card.Content>
    {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
@@ -78,13 +86,13 @@ export default function Dashboard({navigation}) {
      <TouchableOpacity
        style={styles.link}
        onPress={() => {navigation.navigate('EditContact', {
-        id: record.id});
+        id: record._id});
       }}>
        <Text> Edit</Text>
      </TouchableOpacity>
      <TouchableOpacity
        style={styles.link}
-       onPress={() =>handleDelete(record.id)}>
+       onPress={() =>handleDelete(record._id)}>
        <Text> Delete</Text>
      </TouchableOpacity>
    </Card.Actions>
